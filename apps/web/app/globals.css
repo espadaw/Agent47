@@ -1,50 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* ICA Terminal Palette */
+  --bg-primary: #050000;
+  --bg-secondary: #0f0000;
+  --bg-tertiary: #1a0202;
+
+  --text-primary: #f5f5f5;
+  --text-secondary: #a3a3a3;
+  --text-muted: #525252;
+
+  --accent-primary: #dc2626;
+  /* ICA Red */
+  --accent-glow: rgba(220, 38, 38, 0.25);
+
+  --border-subtle: #2a0a0a;
+  --border-highlight: #450a0a;
+
+  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-geist-sans);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-sans), sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background-image: radial-gradient(circle at 50% 0%, #1a0202 0%, #050000 100%);
+  }
+
+  /* Custom Red Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #450a0a;
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #7f1d1d;
   }
 }
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.imgDark {
-  display: none;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+@layer utilities {
+  .text-glow {
+    text-shadow: 0 0 15px var(--accent-glow);
   }
 
-  .imgLight {
-    display: none;
+  .border-glow {
+    box-shadow: 0 0 15px -3px var(--accent-glow);
   }
-  .imgDark {
-    display: unset;
+
+  .glass-panel {
+    background: rgba(10, 0, 0, 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(220, 38, 38, 0.1);
+  }
+
+  .grid-bg {
+    background-size: 50px 50px;
+    background-image:
+      linear-gradient(to right, rgba(220, 38, 38, 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(220, 38, 38, 0.03) 1px, transparent 1px);
+    mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+  }
+
+  .mono-label {
+    font-family: var(--font-mono);
+    font-size: 0.70rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
   }
 }

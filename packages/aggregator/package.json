@@ -1,0 +1,20 @@
+{
+    "name": "@agent47/aggregator",
+    "version": "0.1.0",
+    "main": "./src/index.ts",
+    "types": "./src/index.ts",
+    "license": "MIT",
+    "scripts": {
+        "test": "echo 'No tests yet'"
+    },
+    "dependencies": {
+        "@agent47/shared": "workspace:*",
+        "@agent47/integrations": "workspace:*",
+        "@agent47/database": "workspace:*",
+        "ioredis": "^5.3.2"
+    },
+    "devDependencies": {
+        "@types/node": "^20.10.0",
+        "typescript": "^5.3.3"
+    }
+}
