@@ -25,8 +25,8 @@ export function LiveFeed({ jobs = [] }: LiveFeedProps) {
         } else {
             // Fallback: generate realistic bounty based on job index
             const bountyOptions = [
-                "350 USDC", "500 USDC", "750 USDC", "1200 USDC", "2500 USDC",
-                "0.5 ETH", "1.2 ETH", "2.8 ETH", "800 AC", "1500 AC"
+                "12 USDC", "25 USDC", "45 USDC", "65 USDC", "85 USDC",
+                "8 USDC", "35 USDC", "50 USDC", "75 USDC", "95 USDC"
             ];
             priceDisplay = bountyOptions[idx % bountyOptions.length]!; // Non-null assertion - array is never empty
         }
