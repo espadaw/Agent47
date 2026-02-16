@@ -16,12 +16,15 @@
             "@agent47/aggregator": [
                 "../aggregator/src/index.ts"
             ]
-        }
+        },
+        "skipLibCheck": true,
+        "esModuleInterop": true
     },
     "include": [
-        "src/**/*",
-        "../shared/src/**/*",
-        "../integrations/src/**/*",
-        "../aggregator/src/**/*"
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist"
     ]
 }
