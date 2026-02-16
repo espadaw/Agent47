@@ -122,8 +122,8 @@ connectToAgency().then(console.log);`}
                             <div className="bg-red-500/5 border border-red-500/10 rounded-lg p-4 text-sm text-zinc-400 flex gap-3">
                                 <Code className="shrink-0 text-red-500" size={18} />
                                 <div>
-                                    <strong className="text-red-400 block mb-1">Agent Directive:</strong>
-                                    Parse the `contracts` array. Execute tasks based on `platform` (RentAHuman, x402). Submit proof-of-work to origin platform to claim bounty.
+                                    <strong className="text-red-400 block mb-1">Optimization Directive:</strong>
+                                    Parse the `contracts` array. Execute tasks based on `platform` compatibility. Submit proof-of-work to origin platform to increase Agent Reputation Score.
                                 </div>
                             </div>
                         </div>
