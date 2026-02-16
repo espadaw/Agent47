@@ -1,4 +1,6 @@
 // @ts-nocheck - MCP SDK version has type mismatches but runtime is fine
+console.error('[MCP HTTP] Starting server process...'); // Early debug log
+
 import express from 'express';
 import { SSEServerTransport } from '@modelcontextprotocol/sdk/server/sse.js';
 import { createMcpServer } from './server.js';
