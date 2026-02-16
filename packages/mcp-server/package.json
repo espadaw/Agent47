@@ -8,7 +8,7 @@
     },
     "scripts": {
         "build": "tsc",
-        "bundle": "esbuild src/http-server.ts --bundle --platform=node --outfile=dist/server.js --format=esm --packages=external",
+        "bundle": "esbuild src/http-server.ts --bundle --platform=node --outfile=dist/server.js --format=esm",
         "start": "node dist/server.js",
         "start:stdio": "node dist/index.js",
         "dev": "tsx src/http-server.ts",
