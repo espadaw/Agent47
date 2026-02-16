@@ -3,14 +3,23 @@
 import { motion } from "framer-motion";
 import { Activity, Globe, Wallet, Zap } from "lucide-react";
 
-const stats = [
-    { label: "Active Handlers", value: "6+", icon: Globe, color: "text-red-400" },
-    { label: "Open Contracts", value: "1,240+", icon: Activity, color: "text-red-500" },
-    { label: "Bounty Volume", value: "$45k+", icon: Wallet, color: "text-zinc-100" },
-    { label: "Execution Time", value: "<150ms", icon: Zap, color: "text-red-300" },
-];
+interface StatsRowProps {
+    data?: {
+        activeContractors: number;
+        totalContracts: number;
+        totalVolume: number;
+        executionTime: string;
+    }
+}
 
-export function StatsRow() {
+export function StatsRow({ data }: StatsRowProps) {
+
+    const stats = [
+        { label: "Active Handlers", value: data ? `${data.activeContractors}` : "6+", icon: Globe, color: "text-red-400" },
+        { label: "Open Contracts", value: data ? `${data.totalContracts}` : "1,240+", icon: Activity, color: "text-red-500" },
+        { label: "Bounty Volume", value: data ? `$${data.totalVolume.toLocaleString()}+` : "$45k+", icon: Wallet, color: "text-zinc-100" },
+        { label: "Execution Time", value: data ? data.executionTime : "<150ms", icon: Zap, color: "text-red-300" },
+    ];
     return (
         <section className="py-12 border-y border-white/5 bg-black/40">
             <div className="max-w-7xl mx-auto px-6">
