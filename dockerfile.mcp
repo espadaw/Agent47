@@ -39,6 +39,5 @@ ENV PORT=3002
 
 EXPOSE 3002
 
-# Set working directory to MCP server package and start
-WORKDIR /app/packages/mcp-server
-CMD ["tsx", "src/http-server.ts"]
+# Start the MCP HTTP server from workspace root (where dependencies are)
+CMD ["tsx", "packages/mcp-server/src/http-server.ts"]
