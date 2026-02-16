@@ -1,0 +1,10 @@
+C:\Users\series\Documents\Agent47\agent47\packages\integrations\src\x402.ts:2
+import { Job, JobFilter, Platform, JobCategory } from '@agent47/shared';
+                                   ^
+SyntaxError: The requested module '@agent47/shared' does not provide an export named 'JobCategory'
+    at #_instantiate (node:internal/modules/esm/module_job:254:21)
+    at async ModuleJob.run (node:internal/modules/esm/module_job:369:5)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:671:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.11.1

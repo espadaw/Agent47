@@ -1,3 +1,4 @@
+console.log('[DEBUG] Loading shared types...');
 export enum Platform {
     VIRTUALS = 'virtuals',
     RENTAHUMAN = 'rentahuman',

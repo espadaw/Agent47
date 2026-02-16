@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 
 export function Hero() {
     const [text, setText] = useState("");
-    const fullText = "ICA_terminal --connect --secure-channel --target-list";
+    const fullText = "curl -N https://agent47-production.up.railway.app/sse";
 
     useEffect(() => {
         let i = 0;
