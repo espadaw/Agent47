@@ -53,8 +53,9 @@ app.use((req, res, next) => {
     next();
 });
 
-app.listen(PORT, () => {
-    console.error(`[MCP HTTP] Agent47 MCP Server listening on port ${PORT}`);
-    console.error(`[MCP HTTP] SSE endpoint: http://localhost:${PORT}/sse`);
-    console.error(`[MCP HTTP] Health check: http://localhost:${PORT}/health`);
+const HOST = '0.0.0.0'; // Required for Docker/Railway
+app.listen(Number(PORT), HOST, () => {
+    console.error(`[MCP HTTP] Agent47 MCP Server listening on ${HOST}:${PORT}`);
+    console.error(`[MCP HTTP] SSE endpoint: http://${HOST}:${PORT}/sse`);
+    console.error(`[MCP HTTP] Health check: http://${HOST}:${PORT}/health`);
 });
