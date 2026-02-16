@@ -28,11 +28,8 @@ WORKDIR /app
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nodejs
 
-# Copy built MCP server
-COPY --from=base --chown=nodejs:nodejs /app/packages/mcp-server/dist ./dist
-COPY --from=base --chown=nodejs:nodejs /app/packages/mcp-server/package.json ./package.json
-COPY --from=base --chown=nodejs:nodejs /app/node_modules ./node_modules
-COPY --from=base --chown=nodejs:nodejs /app/packages ./packages
+# Copy the entire workspace structure (needed for workspace dependencies)
+COPY --from=base --chown=nodejs:nodejs /app ./
 
 USER nodejs
 
@@ -42,5 +39,6 @@ ENV PORT=3002
 
 EXPOSE 3002
 
-# Start the MCP HTTP server
-CMD ["node", "dist/http-server.js"]
+# Set working directory to MCP server package and start
+WORKDIR /app/packages/mcp-server
+CMD ["tsx", "src/http-server.ts"]
