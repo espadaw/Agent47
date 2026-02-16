@@ -28,7 +28,7 @@ export function LiveFeed({ jobs = [] }: LiveFeedProps) {
                 "350 USDC", "500 USDC", "750 USDC", "1200 USDC", "2500 USDC",
                 "0.5 ETH", "1.2 ETH", "2.8 ETH", "800 AC", "1500 AC"
             ];
-            priceDisplay = bountyOptions[idx % bountyOptions.length];
+            priceDisplay = bountyOptions[idx % bountyOptions.length]!; // Non-null assertion - array is never empty
         }
 
         return {
