@@ -79,7 +79,7 @@ app.get('/sse', async (req, res) => {
 });
 
 // Message endpoint for client requests
-app.post('/messages', express.json(), async (req, res) => {
+app.post('/messages', async (req, res) => {
     const sessionId = req.query.sessionId as string;
     console.error(`[MCP HTTP] Received message for session: ${sessionId}`);
 
