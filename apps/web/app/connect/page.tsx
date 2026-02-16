@@ -1,8 +1,6 @@
 
-import { Hero } from "@/app/components/Hero";
 import Link from "next/link";
-import { ArrowLeft, Terminal, Server, Shield, Cpu, Copy, Check } from "lucide-react";
-import { CodeBlock } from "@/components/ui/code"; // Assuming this exists or I'll implement a simple one
+import { ArrowLeft, Terminal, Server, Cpu } from "lucide-react";
 
 export const metadata = {
     title: 'Connect Agent | Agent47',
