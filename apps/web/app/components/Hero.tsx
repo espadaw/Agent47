@@ -24,10 +24,10 @@ export function Hero() {
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel border-red-500/30 mb-8"
+                    className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel border-emerald-500/30 mb-8"
                 >
-                    <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-                    <span className="mono-label text-red-500 tracking-widest">ICA NET: ONLINE</span>
+                    <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="mono-label text-emerald-500 tracking-widest">ICA NET: ONLINE</span>
                 </motion.div>
 
                 <motion.h1
