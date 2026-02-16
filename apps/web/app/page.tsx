@@ -23,7 +23,7 @@ export default async function Home() {
             <span className="font-bold text-lg tracking-tight text-white">Agent47</span>
           </Link>
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-zinc-400">
-            <a href="https://github.com/espadaw/Agent47/tree/main/docs" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Documentation</a>
+            <a href="https://github.com/espadaw/Agent47#readme" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Documentation</a>
             <a href="#contractors" className="hover:text-white transition-colors">Contractors</a>
             <a href="#" className="hover:text-white transition-colors opacity-50 cursor-not-allowed" title="Coming Soon">Status</a>
             <a
