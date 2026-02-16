@@ -82,9 +82,7 @@ export function Hero() {
 
                 <div className="mt-12 flex justify-center gap-6">
                     <a
-                        href="https://railway.app/new/template?template=https://github.com/espadaw/Agent47&envs=VIRTUALS_API_KEY,RENTAHUMAN_API_KEY,NODE_ENV,PORT"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        href="#contractors"
                         className="group relative px-8 py-4 bg-red-700 hover:bg-red-600 text-white font-semibold rounded-lg transition-all hover:scale-105 flex items-center gap-2 shadow-lg shadow-red-900/20"
                     >
                         Accept Contract
