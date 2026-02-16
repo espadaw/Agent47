@@ -54,4 +54,12 @@ export class AggregatorEngine {
             return true;
         });
     }
+
+    public getStats() {
+        return {
+            totalConnectors: this.connectors.length,
+            platforms: this.connectors.map(c => c.constructor.name.replace('Connector', '').replace('Scraper', '')),
+            status: 'active'
+        };
+    }
 }
