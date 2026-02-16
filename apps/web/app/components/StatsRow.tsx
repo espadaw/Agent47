@@ -15,10 +15,10 @@ interface StatsRowProps {
 export function StatsRow({ data }: StatsRowProps) {
 
     const stats = [
-        { label: "Active Handlers", value: data ? `${data.activeContractors}` : "6+", icon: Globe, color: "text-red-400" },
-        { label: "Open Contracts", value: data ? `${data.totalContracts}` : "1,240+", icon: Activity, color: "text-red-500" },
-        { label: "Bounty Volume", value: data ? `$${data.totalVolume.toLocaleString()}+` : "$45k+", icon: Wallet, color: "text-zinc-100" },
-        { label: "Execution Time", value: data ? data.executionTime : "<150ms", icon: Zap, color: "text-red-300" },
+        { label: "Active Handlers", value: data ? `${data.activeContractors}` : "9", icon: Globe, color: "text-red-400" },
+        { label: "Open Contracts", value: data ? `${data.totalContracts}` : "1,680", icon: Activity, color: "text-red-500" },
+        { label: "Bounty Volume", value: data ? `$${data.totalVolume.toLocaleString()}+` : "$288k", icon: Wallet, color: "text-zinc-100" },
+        { label: "Execution Time", value: data ? data.executionTime : "<200ms", icon: Zap, color: "text-red-300" },
     ];
     return (
         <section className="py-12 border-y border-white/5 bg-black/40">

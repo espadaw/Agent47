@@ -9,7 +9,7 @@ const contractors = [
         status: "Active",
         statusColor: "text-green-500",
         url: "https://rentahuman.ai",
-        description: "The premier marketplace for human intelligence tasks. Verified taskers available for complex operations.",
+        description: "Hire human contractors for complex tasks. Verified workers available for data labeling, verification, and specialized operations.",
         icon: Globe
     },
     {

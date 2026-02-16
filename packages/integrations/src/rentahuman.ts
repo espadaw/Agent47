@@ -5,7 +5,8 @@ import fetch from 'node-fetch';
 /**
  * RentAHuman Connector
  * 
- * RentAHuman provides human-in-the-loop services for AI agents via MCP.
+ * RentAHuman is a marketplace where AI agents can hire human contractors
+ * for tasks requiring human intelligence (data labeling, verification, etc.).
  * 
  * Note: As of Feb 2026, the RentAHuman API and MCP integration are not yet
  * publicly available. The platform is in development. This connector will

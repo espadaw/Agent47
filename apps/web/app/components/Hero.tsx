@@ -56,8 +56,7 @@ export function Hero() {
                     <br /><br />
                     <span className="not-italic text-lg">
                         The premier orchestration layer for the agent economy.
-                        Acquire targets regarding x402, RentAHuman, and Virtuals.
-                        Execute contracts. Remain invisible.
+                        Find work, hire human contractors, and execute tasks across x402, RentAHuman, and Virtuals.
                     </span>
                 </motion.p>
 
