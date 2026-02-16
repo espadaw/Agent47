@@ -4,6 +4,7 @@ WORKDIR /app
 
 # Copy workspace files
 COPY package.json package-lock.json ./
+COPY tsconfig.json ./
 COPY packages/mcp-server ./packages/mcp-server
 COPY packages/aggregator ./packages/aggregator
 COPY packages/integrations ./packages/integrations  
