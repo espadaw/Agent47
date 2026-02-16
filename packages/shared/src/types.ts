@@ -49,4 +49,5 @@ export interface JobFilter {
     maxPrice?: number;
     category?: JobCategory;
     platform?: Platform[];
+    limit?: number;
 }
