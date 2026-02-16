@@ -45,33 +45,23 @@ app.get('/sse', async (req, res) => {
     // Actually, simpler pattern:
     // We can instantiate the transport, and hook it up.
 
+    // Register transport BEFORE connecting to avoid race condition
+    // The client might receive the 'endpoint' event and POST immediately before server.connect returns
+    const sessionId = transport.sessionId;
+    if (sessionId) {
+        transports.set(sessionId, transport);
+        console.error(`[MCP HTTP] Transport registered for session: ${sessionId}`);
+
+        // Clean up on close
+        res.on('close', () => {
+            console.error(`[MCP HTTP] Session ${sessionId} closed`);
+            transports.delete(sessionId);
+        });
+    }
+
     try {
         await server.connect(transport);
-
-        // After connect, transport SHOULD have a sessionId if it's the standard SDK class.
-        // If not, we might need a different approach.
-        // Checking SDK source (mental modal): SSEServerTransport usually manages this.
-
-        // For this implementation, we will store it.
-        // We need to know what ID the client will use.
-        // The client gets the ID from the `endpoint` event sent by SSEServerTransport.
-        // We'll capture it from the transport if possible.
-
-        // Workaround: We can't easily get the ID from outside without inspecting private props?
-        // Let's try to access `transport.sessionId`.
-
-        const sessionId = transport.sessionId;
-        if (sessionId) {
-            transports.set(sessionId, transport);
-            console.error(`[MCP HTTP] Transport registered for session: ${sessionId}`);
-
-            // Clean up on close
-            res.on('close', () => {
-                console.error(`[MCP HTTP] Session ${sessionId} closed`);
-                transports.delete(sessionId);
-            });
-        }
-
+        console.error('[MCP HTTP] Server connected to SSE transport');
     } catch (error) {
         console.error('[MCP HTTP] Error connecting to transport:', error);
         res.status(500).json({ error: 'Failed to establish SSE connection' });
