@@ -8,8 +8,8 @@
     },
     "scripts": {
         "build": "tsc",
-        "bundle": "esbuild src/http-server.ts --bundle --platform=node --outfile=dist/server.js --format=esm --external:chromium-bidi/lib/cjs/bidiMapper/BidiMapper --external:chromium-bidi/lib/cjs/cdp/CdpConnection",
-        "start": "node dist/server.js",
+        "bundle": "esbuild src/http-server.ts --bundle --platform=node --outfile=dist/server.cjs --format=cjs --external:chromium-bidi/lib/cjs/bidiMapper/BidiMapper --external:chromium-bidi/lib/cjs/cdp/CdpConnection",
+        "start": "node dist/server.cjs",
         "start:stdio": "node dist/index.js",
         "dev": "tsx src/http-server.ts",
         "dev:stdio": "tsx src/index.ts"

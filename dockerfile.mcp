@@ -21,11 +21,11 @@ FROM node:22-alpine
 WORKDIR /app
 
 # Only copy the bundled file - it has EVERYTHING
-COPY --from=0 /app/packages/mcp-server/dist/server.js ./
+COPY --from=0 /app/packages/mcp-server/dist/server.cjs ./
 
 ENV NODE_ENV=production
 ENV PORT=3002
 
 EXPOSE 3002
 
-CMD ["node", "server.js"]
+CMD ["node", "server.cjs"]
