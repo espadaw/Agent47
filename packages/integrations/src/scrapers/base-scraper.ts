@@ -132,7 +132,8 @@ export abstract class BaseScraper extends BasePlatformConnector {
         const values = numbers.map(n => parseFloat(n.replace(/,/g, '')));
 
         if (values.length === 1) {
-            return { min: values[0], max: values[0], currency };
+            const val = values[0] ?? 0; // Fallback to 0 if undefined (should not happen due to length check)
+            return { min: val, max: val, currency };
         } else {
             return {
                 min: Math.min(...values),
