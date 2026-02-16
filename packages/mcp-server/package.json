@@ -8,7 +8,7 @@
     },
     "scripts": {
         "build": "tsc",
-        "start": "node dist/http-server.js",
+        "start": "tsx src/http-server.ts",
         "start:stdio": "node dist/index.js",
         "dev": "tsx src/http-server.ts",
         "dev:stdio": "tsx src/index.ts"

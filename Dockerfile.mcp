@@ -1,0 +1,46 @@
+# Use Node.js 22 Alpine (lightweight)
+FROM node:22-alpine AS base
+
+# Install dependencies for native modules
+RUN apk add --no-cache libc6-compat
+
+WORKDIR /app
+
+# Copy workspace configuration files
+COPY package.json package-lock.json* ./
+COPY turbo.json ./
+
+# Copy all workspace packages and apps (entire structure)
+COPY apps ./apps
+COPY packages ./packages
+
+# Install dependencies (this will link workspace packages)
+RUN npm install
+
+# Build the MCP server
+RUN npx turbo build --filter=@agent47/mcp-server
+
+# Production image
+FROM node:22-alpine AS runner
+WORKDIR /app
+
+# Don't run as root
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nodejs
+
+# Copy built MCP server
+COPY --from=base --chown=nodejs:nodejs /app/packages/mcp-server/dist ./dist
+COPY --from=base --chown=nodejs:nodejs /app/packages/mcp-server/package.json ./package.json
+COPY --from=base --chown=nodejs:nodejs /app/node_modules ./node_modules
+COPY --from=base --chown=nodejs:nodejs /app/packages ./packages
+
+USER nodejs
+
+# Set environment
+ENV NODE_ENV=production
+ENV PORT=3002
+
+EXPOSE 3002
+
+# Start the MCP HTTP server
+CMD ["node", "dist/http-server.js"]
