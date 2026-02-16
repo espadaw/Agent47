@@ -31,6 +31,9 @@ RUN adduser --system --uid 1001 nodejs
 # Copy the entire workspace structure (needed for workspace dependencies)
 COPY --from=base --chown=nodejs:nodejs /app ./
 
+# Create symlink so package can find workspace dependencies
+RUN ln -sf /app/node_modules /app/packages/mcp-server/node_modules
+
 USER nodejs
 
 # Set environment
