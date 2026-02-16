@@ -60,7 +60,7 @@ app.get('/sse', async (req, res) => {
         // Workaround: We can't easily get the ID from outside without inspecting private props?
         // Let's try to access `transport.sessionId`.
 
-        const sessionId = (transport as any).sessionId;
+        const sessionId = transport.sessionId;
         if (sessionId) {
             transports.set(sessionId, transport);
             console.error(`[MCP HTTP] Transport registered for session: ${sessionId}`);
