@@ -17,6 +17,11 @@ app.get('/health', (req, res) => {
     });
 });
 
+// Root endpoint
+app.get('/', (req, res) => {
+    res.status(200).send('Agent47 MCP Server is running!');
+});
+
 // SSE endpoint for MCP protocol
 app.get('/sse', async (req, res) => {
     console.error('[MCP HTTP] New SSE connection established');
