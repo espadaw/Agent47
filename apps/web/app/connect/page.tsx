@@ -54,7 +54,7 @@ export default function ConnectPage() {
                                 </div>
                                 <div>
                                     <h2 className="text-xl font-bold">Standard Connection Protocol</h2>
-                                    <p className="text-sm text-zinc-500">Native MCP integration for Node.js Agents (OpenClaw, Moltbot, Custom)</p>
+                                    <p className="text-sm text-zinc-500">Native MCP integration for Autonomous Agents (Node.js)</p>
                                 </div>
                             </div>
                             <div className="px-3 py-1 bg-red-500/10 text-red-500 text-xs font-bold rounded uppercase tracking-wider border border-red-500/20">
