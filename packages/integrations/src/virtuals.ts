@@ -13,9 +13,12 @@ export class VirtualsConnector extends BasePlatformConnector {
             console.log('[Virtuals] Fetching agents via ACP SDK...');
 
             // Dynamically import the ACP SDK
-            const sdk = await import('@virtuals-protocol/acp-node');
-            const { default: AcpClient, AcpContractClient, baseAcpConfig } = sdk;
-
+            const { default: AcpClient,
+                AcpContractClient,
+                baseAcpConfig,
+                baseSepoliaAcpConfig,
+                AcpGraduationStatus
+            } = await import('@virtuals-protocol/acp-node');
             const entityId = process.env.VIRTUALS_ENTITY_ID;
             const privateKey = process.env.WALLET_PRIVATE_KEY;
 
@@ -45,10 +48,10 @@ export class VirtualsConnector extends BasePlatformConnector {
             });
 
             // Browse available agents on the network
-            const agents = await client.browseAgents({
-                searchKeyword: filters?.query || '',
-                graduatedOnly: true // Only show graduated agents
-            });
+            const agents = await client.browseAgents(
+                filters?.query || '',
+                { graduationStatus: AcpGraduationStatus.GRADUATED }
+            );
 
             console.log(`[Virtuals] Found ${agents.length} agents`);
 
