@@ -13,9 +13,9 @@
     },
     "dependencies": {
         "@modelcontextprotocol/sdk": "^0.6.0",
-        "@agent47/aggregator": "workspace:*",
-        "@agent47/integrations": "workspace:*",
-        "@agent47/shared": "workspace:*",
+        "@agent47/aggregator": "*",
+        "@agent47/integrations": "*",
+        "@agent47/shared": "*",
         "zod": "^3.22.4",
         "playwright": "^1.40.0",
         "cheerio": "^1.0.0-rc.12",

@@ -8,7 +8,7 @@
         "test": "echo 'No tests yet'"
     },
     "dependencies": {
-        "@agent47/shared": "workspace:*",
+        "@agent47/shared": "*",
         "dotenv": "^16.4.5",
         "@virtuals-protocol/acp-node": "^0.3.0-beta.29",
         "@modelcontextprotocol/sdk": "^1.0.4",

@@ -11,6 +11,8 @@
     "check-types": "next typegen && tsc --noEmit"
   },
   "dependencies": {
+    "@agent47/aggregator": "*",
+    "@agent47/shared": "*",
     "@repo/ui": "*",
     "clsx": "^2.1.1",
     "framer-motion": "^12.34.0",

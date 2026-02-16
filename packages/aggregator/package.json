@@ -8,9 +8,8 @@
         "test": "echo 'No tests yet'"
     },
     "dependencies": {
-        "@agent47/shared": "workspace:*",
-        "@agent47/integrations": "workspace:*",
-        "@agent47/database": "workspace:*",
+        "@agent47/shared": "*",
+        "@agent47/integrations": "*",
         "ioredis": "^5.3.2"
     },
     "devDependencies": {
