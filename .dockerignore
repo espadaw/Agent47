@@ -1,0 +1,11 @@
+# Ignore files not needed in Docker build
+.git
+.github
+node_modules
+**/.next
+**/dist
+**/.turbo
+*.log
+.env
+.env.local
+README.md
