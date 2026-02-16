@@ -1,6 +1,11 @@
-import { Browser, chromium, Page } from 'playwright';
+import type { Browser, Page } from 'playwright';
 import { BasePlatformConnector } from '../base';
 import { Job, JobFilter, Platform } from '@agent47/shared';
+
+// Define types locally/dummy since we're using dynamic import
+// This avoids strict dependency on playwright types in the bundle
+type PlaywrightBrowser = Browser;
+type PlaywrightPage = Page;
 
 /**
  * Base Scraper Class
@@ -9,7 +14,7 @@ import { Job, JobFilter, Platform } from '@agent47/shared';
  * Uses Playwright for browser automation and handles caching, rate limiting, and error handling.
  */
 export abstract class BaseScraper extends BasePlatformConnector {
-    protected browser: Browser | null = null;
+    protected browser: PlaywrightBrowser | null = null;
     protected lastRequest: number = 0;
     protected minDelay: number = 2000; // 2 seconds between requests
 
@@ -24,10 +29,17 @@ export abstract class BaseScraper extends BasePlatformConnector {
      */
     protected async initBrowser(): Promise<void> {
         if (!this.browser) {
-            this.browser = await chromium.launch({
-                headless: true,
-                args: ['--no-sandbox', '--disable-setuid-sandbox']
-            });
+            try {
+                // Dynamic import to avoid bundling playwright
+                const { chromium } = await import('playwright');
+                this.browser = await chromium.launch({
+                    headless: true,
+                    args: ['--no-sandbox', '--disable-setuid-sandbox']
+                });
+            } catch (error) {
+                console.error('Failed to load playwright. Make sure it is installed if using scrapers.', error);
+                throw error;
+            }
         }
     }
 
@@ -56,7 +68,7 @@ export abstract class BaseScraper extends BasePlatformConnector {
      * Navigate to URL with retry logic
      */
     protected async navigateWithRetry(
-        page: Page,
+        page: PlaywrightPage,
         url: string,
         maxRetries: number = 3
     ): Promise<void> {
