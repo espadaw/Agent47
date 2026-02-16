@@ -19,7 +19,7 @@ export function LiveFeed({ jobs = [] }: LiveFeedProps) {
     // Transform real jobs to display format or use mock
     const displayJobs = jobs.length > 0 ? jobs.map((j, idx) => {
         // Generate realistic bounty if missing
-        let priceDisplay: string;
+        let priceDisplay = "BOUNTY PENDING"; // Default value
         if (j.salary && j.salary.min > 0) {
             priceDisplay = `${j.salary.min} ${j.salary.currency}`;
         } else {
