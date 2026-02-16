@@ -82,7 +82,7 @@ export function Hero() {
 
                 <div className="mt-12 flex justify-center gap-6">
                     <a
-                        href="#contractors"
+                        href="/connect"
                         className="group relative px-8 py-4 bg-red-700 hover:bg-red-600 text-white font-semibold rounded-lg transition-all hover:scale-105 flex items-center gap-2 shadow-lg shadow-red-900/20"
                     >
                         Accept Contract
