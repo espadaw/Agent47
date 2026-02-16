@@ -6,7 +6,9 @@ import { SSEServerTransport } from '@modelcontextprotocol/sdk/server/sse.js';
 import { createMcpServer } from './server.js';
 
 const app = express();
-const PORT = process.env.PORT || 3002;
+// Railway Networking is configured for Port 3002, but process.env.PORT is coming in as 8080
+// We must force 3002 to match the container routing
+const PORT = 3002;
 
 // Health check endpoint
 app.get('/health', (req, res) => {
