@@ -4,11 +4,15 @@ console.error('[MCP HTTP] Starting server process...'); // Early debug log
 import express from 'express';
 import { SSEServerTransport } from '@modelcontextprotocol/sdk/server/sse.js';
 import { createMcpServer } from './server.js';
+import { monitoringMiddleware } from './middleware/monitoring.js';
 
 const app = express();
 // Railway Networking is configured for Port 3002, but process.env.PORT is coming in as 8080
 // We must force 3002 to match the container routing
 const PORT = 3002;
+
+// Add monitoring middleware
+app.use(monitoringMiddleware);
 
 // Health check endpoint
 app.get('/health', (req, res) => {
@@ -97,13 +101,26 @@ app.use((req, res, next) => {
 
 // Import manifest route
 import manifestRouter from './routes/manifest.js';
+import statusRouter from './routes/status.js';
 
 // Register manifest route
 app.use('/api', manifestRouter);
 
+// Register status routes
+app.use('/api', statusRouter);
+
 // Redirect root manifest to API endpoint for easy discovery
 app.get('/manifest.json', (req, res) => {
     res.redirect('/api/manifest.json');
+});
+
+// Redirect root status endpoints for easy discovery
+app.get('/status.json', (req, res) => {
+    res.redirect('/api/status.json');
+});
+
+app.get('/metrics', (req, res) => {
+    res.redirect('/api/metrics');
 });
 
 // Payment error handling middleware (HTTP 402)
@@ -118,8 +135,14 @@ app.use((err: any, req: any, res: any, next: any) => {
 });
 
 const HOST = '0.0.0.0'; // Required for Docker/Railway
-app.listen(Number(PORT), HOST, () => {
+app.listen(Number(PORT), HOST, async () => {
     console.error(`[MCP HTTP] Agent47 MCP Server listening on ${HOST}:${PORT}`);
     console.error(`[MCP HTTP] SSE endpoint: http://${HOST}:${PORT}/sse`);
     console.error(`[MCP HTTP] Health check: http://${HOST}:${PORT}/health`);
+
+    // Start monitoring systems
+    const { startHealthChecks } = await import('./monitoring/healthcheck.js');
+    const { startSnapshotScheduler } = await import('./monitoring/snapshot.js');
+    startHealthChecks();
+    startSnapshotScheduler();
 });

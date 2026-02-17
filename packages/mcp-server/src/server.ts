@@ -2,6 +2,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import { AggregatorEngine } from '@agent47/aggregator';
 import { checkPayment, PaymentRequiredError } from './middleware/payment.js';
+import { requestLatency, requestCounter, jobsAggregated } from './monitoring/metrics.js';
 
 /**
  * Creates and configures an MCP server instance with job aggregation tools.
@@ -26,11 +27,15 @@ export function createMcpServer(): McpServer {
             platform: z.enum(['rentahuman', 'jobforagent', 'virtuals', 'x402']).optional().describe("Filter by specific platform")
         },
         async ({ query, minPrice, maxPrice, platform }, context) => {
+            const startTime = Date.now();
+            let status = 'success';
+
             // Log to stderr to avoid interfering with JSON-RPC on stdout
             console.error(`[MCP] Handling findJobs request:`, { query, minPrice, maxPrice, platform });
 
             try {
                 // Check payment before executing
+                // @ts-ignore - context.headers not in MCP SDK type, but works when payment enabled
                 await checkPayment('findJobs', context?.headers || {});
 
                 const jobs = await aggregator.fetchAllJobs({
@@ -38,6 +43,16 @@ export function createMcpServer(): McpServer {
                     minPrice,
                     maxPrice,
                     platform: platform as any
+                });
+
+                // Track jobs found per platform
+                const jobsByPlatform = jobs.reduce((acc: Record<string, number>, job: any) => {
+                    acc[job.platform] = (acc[job.platform] || 0) + 1;
+                    return acc;
+                }, {});
+
+                Object.entries(jobsByPlatform).forEach(([platform, count]) => {
+                    jobsAggregated.labels(platform).inc(count as number);
                 });
 
                 return {
@@ -49,6 +64,7 @@ export function createMcpServer(): McpServer {
                     ],
                 };
             } catch (error) {
+                status = 'error';
                 if (error instanceof PaymentRequiredError) {
                     console.error(`[MCP] Payment required for findJobs`);
                     return {
@@ -79,6 +95,10 @@ export function createMcpServer(): McpServer {
                     ],
                     isError: true,
                 };
+            } finally {
+                const duration = (Date.now() - startTime) / 1000;
+                requestLatency.labels('findJobs', status).observe(duration);
+                requestCounter.labels('findJobs', status).inc();
             }
         }
     );
@@ -90,6 +110,7 @@ export function createMcpServer(): McpServer {
         async (_, context) => {
             try {
                 // Check payment before executing
+                // @ts-ignore - context.headers not in MCP SDK type, but works when payment enabled
                 await checkPayment('getPlatformStats', context?.headers || {});
 
                 const stats = aggregator.getStats();
@@ -127,6 +148,7 @@ export function createMcpServer(): McpServer {
         async ({ query }, context) => {
             try {
                 // Check payment before executing
+                // @ts-ignore - context.headers not in MCP SDK type, but works when payment enabled
                 await checkPayment('comparePrice', context?.headers || {});
 
                 const jobs = await aggregator.fetchAllJobs({ query });

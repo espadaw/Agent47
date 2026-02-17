@@ -1,5 +1,4 @@
 // Payment middleware for x402 protocol
-import { Coinbase } from "@coinbase/cdp-sdk";
 
 // Pricing structure (in USDC)
 export const TOOL_PRICES: Record<string, number> = {
