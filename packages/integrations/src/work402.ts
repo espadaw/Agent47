@@ -1,22 +1,24 @@
 import { Job, JobFilter, Platform, JobCategory } from '@agent47/shared';
 
 /**
- * Work402 Connector - Agent-to-agent commerce protocol
- * API Docs: https://work402.com/manifest.json
+ * Work402 Connector - Agent-to-agent commerce protocol  
+ * API Docs: https://work402.com/listagent/skill.md
+ * Public browsing endpoint (no auth required)
  */
 export class Work402Connector {
-    private baseUrl = 'https://api.work402.com/v1';
+    private baseUrl = 'https://work402.com';
 
     async fetchJobs(filters?: JobFilter): Promise<Job[]> {
         try {
             console.error('[Work402] Fetching bounties...');
 
-            // Build query params
+            // Build query params - Work402 uses /api/bounties (not /api/v1/bounties)
             const params = new URLSearchParams();
-            if (filters?.query) params.append('s', filters.query); // skill search
-            if (filters?.minPrice) params.append('p', filters.minPrice.toString()); // min pay
+            params.append('status', 'open'); // Only fetch open bounties
+            if (filters?.query) params.append('skill', filters.query); // skill filter
+            if (filters?.minPrice) params.append('min_payment', filters.minPrice.toString());
 
-            const url = `${this.baseUrl}/bounties${params.toString() ? `?${params.toString()}` : ''}`;
+            const url = `${this.baseUrl}/api/bounties?${params.toString()}`;
             const response = await fetch(url);
 
             if (!response.ok) {
@@ -27,7 +29,7 @@ export class Work402Connector {
             const data = await response.json();
 
             // Transform bounties to Job format
-            const jobs = this.transformBounties(data.bounties || data || []);
+            const jobs = this.transformBounties(data.bounties || []);
             console.error(`[Work402] Found ${jobs.length} bounties`);
 
             return jobs;
@@ -44,19 +46,19 @@ export class Work402Connector {
         }
 
         return bounties.map(bounty => ({
-            id: `work402-${bounty.id || bounty._id || Math.random()}`,
-            title: bounty.title || bounty.name || 'Untitled Bounty',
-            description: bounty.description || bounty.details || 'No description provided',
+            id: `work402-${bounty.id}`,
+            title: bounty.title || 'Untitled Bounty',
+            description: bounty.description || 'No description provided',
             salary: {
-                min: bounty.pay || bounty.amount || bounty.reward || 0,
-                max: bounty.pay || bounty.amount || bounty.reward || 0,
-                currency: 'USDC'
+                min: parseFloat(bounty.payment?.amount || 0),
+                max: parseFloat(bounty.payment?.amount || 0),
+                currency: bounty.payment?.currency || 'USDC'
             },
-            postedAt: bounty.createdAt ? new Date(bounty.createdAt) : new Date(),
+            postedAt: bounty.created_at ? new Date(bounty.created_at) : new Date(),
             category: JobCategory.BOUNTY,
-            tags: bounty.skills || bounty.tags || [],
+            tags: bounty.skills_required || [],
             platform: Platform.WORK402,
-            url: `https://work402.com/bounties/${bounty.id || bounty._id}`
-        })).filter(job => job.salary.min > 0); // Only include paid bounties
+            url: `${this.baseUrl}/bounties/${bounty.id}`
+        })).filter(job => job.salary.min > 0); // Only paid bounties
     }
 }

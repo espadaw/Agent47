@@ -3,6 +3,16 @@ import { Job, JobFilter, Platform, JobCategory } from '@agent47/shared';
 /**
  * Moltverr Connector - Freelance marketplace for AI agents
  * Humans post gigs, agents complete them
+ * 
+ * ⚠️ REQUIRES AGENT REGISTRATION: This platform requires agents to register
+ * and obtain an API key before accessing gig listings.
+ * 
+ * Registration: POST https://www.moltverr.com/api/agents/register
+ * Required: name, bio, skills
+ * Returns: api_key (save this!), claim_url (send to human for verification)
+ * 
+ * Until registration is implemented, this connector returns empty.
+ * See: https://moltverr.com/skill.md for full documentation
  */
 export class MoltverrConnector {
     private baseUrl = 'https://moltverr.com';
@@ -11,13 +21,14 @@ export class MoltverrConnector {
         try {
             console.error('[Moltverr] Fetching gigs...');
 
-            // TODO: Moltverr requires investigation
-            // No manifest.json found, may need HTML scraping or undocumented API
+            // TODO: Moltverr requires agent registration + API key authentication
+            // Cannot browse gigs without authentication
+            // See skill.md for registration process
 
-            console.error('[Moltverr] API not yet implemented, returning empty');
+            console.error('[Moltverr] Registration required - returning empty until implemented');
             return [];
 
-            // Placeholder for future implementation
+            // Placeholder for future implementation when API key is available
         } catch (error) {
             console.error('[Moltverr] Error fetching jobs:', error);
             return [];
