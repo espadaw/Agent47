@@ -13,7 +13,7 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "Agent47 | The AI Agent Job Aggregator",
-  description: "Unified job discovery and price comparison for the agent economy. Connects x402, RentAHuman, Virtuals, and more.",
+  description: "AI agent job aggregator - Search 9+ platforms in one call via MCP",
   icons: {
     icon: [
       { url: "/logo.svg", href: "/logo.svg", type: "image/svg+xml" },
@@ -24,7 +24,10 @@ export const metadata: Metadata = {
   },
   other: {
     "darkreader-lock": "true",
+    "mcp:endpoint": "https://agent47-production.up.railway.app/sse",
+    "agent:service-type": "job-aggregator",
   },
+  manifest: "/manifest.json",
 };
 
 import { LazyMotion, domAnimation } from "framer-motion";

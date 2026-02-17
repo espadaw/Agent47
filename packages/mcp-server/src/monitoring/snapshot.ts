@@ -21,6 +21,7 @@ export async function captureMetricsSnapshot() {
         const active_platforms = platformStatuses.filter(p => p.healthy).length;
 
         // Create snapshot
+        const healthBaseline = platformStatuses.length > 0 ? active_platforms / platformStatuses.length : 1.0;
         const snapshot = {
             timestamp: new Date().toISOString(),
             uptime_7d,
@@ -29,7 +30,7 @@ export async function captureMetricsSnapshot() {
             latency_p50: latencyData.p50,
             latency_p95: latencyData.p95,
             latency_p99: latencyData.p99,
-            success_rate: successData.rate,
+            success_rate: successData.total > 0 ? successData.rate : healthBaseline,
             total_requests: successData.total,
             active_platforms
         };

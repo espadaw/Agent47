@@ -104,7 +104,14 @@ export async function calculateUptimePercentage(days: number): Promise<number> {
     try {
         const metrics = await getHistoricalMetrics(days);
 
-        if (metrics.length === 0) return 100; // No data yet, assume up
+        if (metrics.length === 0) {
+            // No data yet, fallback to current platform health ratio
+            const { getPlatformStatuses } = await import('./healthcheck.js');
+            const platforms = getPlatformStatuses();
+            if (platforms.length === 0) return 100;
+            const healthRatio = platforms.filter(p => p.healthy).length / platforms.length;
+            return healthRatio * 100;
+        }
 
         // Count snapshots with success rate > 95%
         const upCount = metrics.filter(m => m.success_rate > 0.95).length;

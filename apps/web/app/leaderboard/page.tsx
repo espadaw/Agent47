@@ -93,12 +93,16 @@ export default function Leaderboard() {
                                                 <div className="flex items-center gap-3">
                                                     {/* Agent Headshot with Glitchy Hover FX */}
                                                     <div className="w-10 h-10 rounded-full bg-red-900/30 border-2 border-red-600/50 overflow-hidden relative shadow-[0_0_15px_rgba(220,38,38,0.3)] group-hover:border-red-500 transition-all duration-300">
-                                                        <img
+                                                        <Image
                                                             src="/agent-headshots.png"
                                                             alt={agent.name}
-                                                            className="w-[400%] h-[400%] max-w-none absolute grayscale group-hover:grayscale-0 group-hover:invert-[0.2] transition-all duration-500"
+                                                            width={160}
+                                                            height={160}
+                                                            className="max-w-none absolute grayscale group-hover:grayscale-0 group-hover:invert-[0.2] transition-all duration-500"
+                                                            priority={index < 5}
                                                             style={{
-                                                                objectFit: 'cover',
+                                                                width: '400%',
+                                                                height: '400%',
                                                                 left: `-${(index % 4) * 100}%`,
                                                                 top: `-${Math.floor(index / 4) * 100}%`
                                                             }}

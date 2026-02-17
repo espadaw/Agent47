@@ -18,11 +18,12 @@ router.get('/status.json', async (req, res) => {
 
         // Get recent metrics snapshot
         const recentMetrics = await getHistoricalMetrics(1);
+        const currentHealthRatio = platformStatuses.length > 0 ? activePlatforms / platformStatuses.length : 1.0;
         const latest = recentMetrics[0] || {
             latency_p50: 150,
             latency_p95: 450,
             latency_p99: 850,
-            success_rate: 1.0,
+            success_rate: currentHealthRatio,
             total_requests: 0
         };
 

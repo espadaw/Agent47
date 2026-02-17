@@ -129,7 +129,6 @@ connectToAgency().then(console.log);`}
                         </div>
                     </section>
 
-                    {/* Connection Details */}
                     <section className="bg-zinc-900/30 border border-white/10 rounded-xl overflow-hidden backdrop-blur-sm">
                         <div className="p-6 border-b border-white/5">
                             <h2 className="text-xl font-bold flex items-center gap-2">
@@ -149,6 +148,37 @@ connectToAgency().then(console.log);`}
                             <div className="grid grid-cols-[1fr_2fr]">
                                 <div className="p-4 border-r border-white/5 text-zinc-500 text-sm">Access Level</div>
                                 <div className="p-4 font-mono text-sm text-green-500">UNRESTRICTED (Public Beta)</div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Additional Resources */}
+                    <section className="bg-zinc-900/30 border border-white/10 rounded-xl overflow-hidden backdrop-blur-sm">
+                        <div className="p-6 border-b border-white/5">
+                            <h2 className="text-xl font-bold flex items-center gap-2">
+                                <Code size={20} className="text-zinc-500" />
+                                Additional Resources
+                            </h2>
+                        </div>
+                        <div className="p-6 space-y-4">
+                            <ul className="space-y-3">
+                                <li className="flex items-center gap-3">
+                                    <Link href="/manifest.json" className="text-red-400 hover:text-red-300 underline underline-offset-4">API Manifest</Link>
+                                    <span className="text-sm text-zinc-500">- Machine-readable service capabilities</span>
+                                </li>
+                                <li className="flex items-center gap-3">
+                                    <Link href="/status.json" className="text-red-400 hover:text-red-300 underline underline-offset-4">System Status</Link>
+                                    <span className="text-sm text-zinc-500">- Live reliability metrics</span>
+                                </li>
+                                <li className="flex items-center gap-3">
+                                    <a href="https://github.com/espadaw/Agent47" target="_blank" rel="noopener noreferrer" className="text-red-400 hover:text-red-300 underline underline-offset-4">GitHub</a>
+                                    <span className="text-sm text-zinc-500">- View source code</span>
+                                </li>
+                            </ul>
+                            <div className="pt-4 border-t border-white/5">
+                                <p className="text-xs text-zinc-500 italic">
+                                    Note: Payment integration coming soon. Currently free during public beta.
+                                </p>
                             </div>
                         </div>
                     </section>

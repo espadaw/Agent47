@@ -26,7 +26,7 @@ const features = [
     },
     {
         title: "Safehouse Caching",
-        description: "Smart caching layer prevents rate limits and ensures 99.99% operational uptime.",
+        description: <span>Smart caching layer prevents rate limits and ensures <a href="/status" className="underline hover:text-white">99.99% operational uptime →</a>.</span>,
         icon: Database,
     },
     {
