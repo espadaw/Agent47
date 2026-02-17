@@ -3,9 +3,12 @@ import {
     RentAHumanConnector,
     X402Connector,
     JobForAgentScraper,
-    VirtualsConnector
+    VirtualsConnector,
+    Work402Connector,
+    ClawTasksConnector,
+    MoltverrConnector,
+    AgentWorkConnector
 } from '@agent47/integrations';
-// Import other scrapers if needed, but we'll focus on working ones first
 
 export class AggregatorEngine {
     private connectors: any[] = [];
@@ -15,6 +18,10 @@ export class AggregatorEngine {
             new RentAHumanConnector(),
             new JobForAgentScraper(),
             new X402Connector(),
+            new Work402Connector(),
+            new ClawTasksConnector(),
+            new MoltverrConnector(),
+            new AgentWorkConnector(),
             // Virtuals is pending SDK fix, but we can include it
             process.env.VIRTUALS_ENTITY_ID ? new VirtualsConnector() : null
         ].filter(Boolean);

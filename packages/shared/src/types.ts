@@ -4,6 +4,12 @@ export enum Platform {
     RENTAHUMAN = 'rentahuman',
     X402_BAZAAR = 'x402_bazaar',
 
+    // New agent platforms
+    WORK402 = 'work402',
+    CLAWTASKS = 'clawtasks',
+    MOLTVERR = 'moltverr',
+    AGENTWORK = 'agentwork',
+
     // Web scraping platforms
     JOBFORAGENT = 'jobforagent',
     AGENT_AI = 'agent_ai',
@@ -23,6 +29,8 @@ export enum JobCategory {
     SOCIAL_MEDIA = 'social_media',
     ASSISTANT = 'assistant',
     CREATIVE = 'creative',
+    BOUNTY = 'bounty',
+    GIG = 'gig',
     OTHER = 'other'
 }
 
