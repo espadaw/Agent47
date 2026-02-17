@@ -106,6 +106,17 @@ app.get('/manifest.json', (req, res) => {
     res.redirect('/api/manifest.json');
 });
 
+// Payment error handling middleware (HTTP 402)
+import { PaymentRequiredError, formatPaymentError } from './middleware/payment.js';
+
+app.use((err: any, req: any, res: any, next: any) => {
+    if (err instanceof PaymentRequiredError) {
+        res.status(402).json(formatPaymentError(err));
+    } else {
+        next(err);
+    }
+});
+
 const HOST = '0.0.0.0'; // Required for Docker/Railway
 app.listen(Number(PORT), HOST, () => {
     console.error(`[MCP HTTP] Agent47 MCP Server listening on ${HOST}:${PORT}`);

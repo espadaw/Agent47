@@ -20,6 +20,7 @@
         "@agent47/shared": "*",
         "@modelcontextprotocol/sdk": "^1.0.4",
         "@virtuals-protocol/acp-node": "^0.3.0-beta.29",
+        "@coinbase/cdp-sdk": "latest",
         "cheerio": "^1.0.0-rc.12",
         "dotenv": "^16.4.5",
         "express": "^4.18.2",
