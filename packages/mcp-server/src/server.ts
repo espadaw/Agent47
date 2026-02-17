@@ -1,6 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import { AggregatorEngine } from '@agent47/aggregator';
+import { checkPayment, PaymentRequiredError } from './middleware/payment.js';
 
 /**
  * Creates and configures an MCP server instance with job aggregation tools.
@@ -15,7 +16,7 @@ export function createMcpServer(): McpServer {
     // Initialize Aggregator
     const aggregator = new AggregatorEngine();
 
-    // Define findJobs tool
+    // Define findJobs tool (with payment)
     server.tool(
         "findJobs",
         {
@@ -24,11 +25,14 @@ export function createMcpServer(): McpServer {
             maxPrice: z.number().optional().describe("Maximum price/salary"),
             platform: z.enum(['rentahuman', 'jobforagent', 'virtuals', 'x402']).optional().describe("Filter by specific platform")
         },
-        async ({ query, minPrice, maxPrice, platform }) => {
+        async ({ query, minPrice, maxPrice, platform }, context) => {
             // Log to stderr to avoid interfering with JSON-RPC on stdout
             console.error(`[MCP] Handling findJobs request:`, { query, minPrice, maxPrice, platform });
 
             try {
+                // Check payment before executing
+                await checkPayment('findJobs', context?.headers || {});
+
                 const jobs = await aggregator.fetchAllJobs({
                     query,
                     minPrice,
@@ -45,6 +49,26 @@ export function createMcpServer(): McpServer {
                     ],
                 };
             } catch (error) {
+                if (error instanceof PaymentRequiredError) {
+                    console.error(`[MCP] Payment required for findJobs`);
+                    return {
+                        content: [
+                            {
+                                type: "text",
+                                text: JSON.stringify({
+                                    error: 'Payment Required',
+                                    amount: error.amount,
+                                    currency: 'USDC',
+                                    network: 'Base',
+                                    tool: error.toolName,
+                                    instructions: 'Send payment to Agent47 wallet on Base network, include transaction hash in X-Payment-Proof header'
+                                }, null, 2),
+                            },
+                        ],
+                        isError: true,
+                    };
+                }
+
                 console.error(`[MCP] Error fetching jobs:`, error);
                 return {
                     content: [
@@ -59,26 +83,52 @@ export function createMcpServer(): McpServer {
         }
     );
 
-    // Define getPlatformStats tool
+    // Define getPlatformStats tool (with payment)
     server.tool(
         "getPlatformStats",
         {},
-        async () => {
-            const stats = aggregator.getStats();
-            return {
-                content: [{ type: "text", text: JSON.stringify(stats, null, 2) }]
-            };
+        async (_, context) => {
+            try {
+                // Check payment before executing
+                await checkPayment('getPlatformStats', context?.headers || {});
+
+                const stats = aggregator.getStats();
+                return {
+                    content: [{ type: "text", text: JSON.stringify(stats, null, 2) }]
+                };
+            } catch (error) {
+                if (error instanceof PaymentRequiredError) {
+                    return {
+                        content: [{
+                            type: "text",
+                            text: JSON.stringify({
+                                error: 'Payment Required',
+                                amount: error.amount,
+                                currency: 'USDC',
+                                network: 'Base',
+                                tool: error.toolName,
+                                instructions: 'Send payment to Agent47 wallet on Base network'
+                            }, null, 2)
+                        }],
+                        isError: true,
+                    };
+                }
+                throw error;
+            }
         }
     );
 
-    // Define comparePrice tool
+    // Define comparePrice tool (with payment)
     server.tool(
         "comparePrice",
         {
             query: z.string().describe("Job title or skill to compare prices for")
         },
-        async ({ query }) => {
+        async ({ query }, context) => {
             try {
+                // Check payment before executing
+                await checkPayment('comparePrice', context?.headers || {});
+
                 const jobs = await aggregator.fetchAllJobs({ query });
 
                 // Basic Analysis available jobs
@@ -103,6 +153,23 @@ export function createMcpServer(): McpServer {
                     content: [{ type: "text", text: JSON.stringify(analysis, null, 2) }]
                 };
             } catch (error) {
+                if (error instanceof PaymentRequiredError) {
+                    return {
+                        content: [{
+                            type: "text",
+                            text: JSON.stringify({
+                                error: 'Payment Required',
+                                amount: error.amount,
+                                currency: 'USDC',
+                                network: 'Base',
+                                tool: error.toolName,
+                                instructions: 'Send payment to Agent47 wallet on Base network'
+                            }, null, 2)
+                        }],
+                        isError: true,
+                    };
+                }
+
                 return {
                     content: [{ type: "text", text: `Error comparing prices: ${error}` }],
                     isError: true
