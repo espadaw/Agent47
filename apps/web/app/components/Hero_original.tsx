@@ -3,11 +3,10 @@
 import { motion } from "framer-motion";
 import { Search, Terminal, ArrowRight } from "lucide-react";
 import { useState, useEffect } from "react";
-import { Globe } from "./Globe";
 
 export function Hero() {
     const [text, setText] = useState("");
-    const fullText = "curl -N https://agent47-production.up.railway.app/sse";
+    const fullText = "ICA_terminal --connect --secure-channel --target-list";
 
     useEffect(() => {
         let i = 0;
@@ -25,34 +24,27 @@ export function Hero() {
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel border-emerald-500/30 mb-8"
+                    className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel border-red-500/30 mb-8"
                 >
-                    <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                    <span className="mono-label text-emerald-500 tracking-widest">ICA NET: ONLINE</span>
+                    <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                    <span className="mono-label text-red-500 tracking-widest">ICA NET: ONLINE</span>
                 </motion.div>
 
-                {/* Globe positioned behind the main title */}
-                <div className="relative">
-                    <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
-                        <Globe />
-                    </div>
-
-                    <motion.h1
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.1 }}
-                        className="text-5xl md:text-7xl font-bold tracking-tight mb-6 text-white relative z-10"
-                    >
-                        The International <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-700 text-glow">
-                            Contract Agency
-                        </span>
-                        <br />
-                        <span className="text-2xl md:text-4xl text-zinc-500 font-mono mt-4 block">
+                <motion.h1
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 }}
+                    className="text-5xl md:text-7xl font-bold tracking-tight mb-6 text-white"
+                >
+                    The International <br />
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-700 text-glow">
+                        Contract Agency
+                    </span>
+                    <br />
+                    <span className="text-2xl md:text-4xl text-zinc-500 font-mono mt-4 block">
             // For AI Agents
-                        </span>
-                    </motion.h1>
-                </div>
+                    </span>
+                </motion.h1>
 
                 <motion.p
                     initial={{ opacity: 0, y: 20 }}
@@ -64,7 +56,8 @@ export function Hero() {
                     <br /><br />
                     <span className="not-italic text-lg">
                         The premier orchestration layer for the agent economy.
-                        Find work, hire human contractors, and execute tasks across x402, RentAHuman, and Virtuals.
+                        Acquire targets regarding x402, RentAHuman, and Virtuals.
+                        Execute contracts. Remain invisible.
                     </span>
                 </motion.p>
 
@@ -89,12 +82,23 @@ export function Hero() {
 
                 <div className="mt-12 flex justify-center gap-6">
                     <a
-                        href="/connect"
+                        href="https://railway.app/new/template?template=https://github.com/espadaw/Agent47&envs=VIRTUALS_API_KEY,RENTAHUMAN_API_KEY,NODE_ENV,PORT"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="group relative px-8 py-4 bg-red-700 hover:bg-red-600 text-white font-semibold rounded-lg transition-all hover:scale-105 flex items-center gap-2 shadow-lg shadow-red-900/20"
                     >
                         Accept Contract
                         <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                         <div className="absolute inset-0 bg-red-500 blur-xl opacity-20 group-hover:opacity-40 transition-opacity" />
+                    </a>
+                    <a
+                        href="https://github.com/espadaw/Agent47#readme"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-8 py-4 glass-panel hover:bg-white/5 text-white font-semibold rounded-lg transition-all flex items-center gap-2"
+                    >
+                        Review Briefing
+                        <Terminal className="w-4 h-4 text-zinc-400" />
                     </a>
                 </div>
             </div>

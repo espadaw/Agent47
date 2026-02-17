@@ -10,7 +10,7 @@ export class Work402Connector {
 
     async fetchJobs(filters?: JobFilter): Promise<Job[]> {
         try {
-            console.error('[Work402] Fetching bounties...');
+            console.log('[Work402] Fetching bounties...');
 
             // Build query params - Work402 uses /api/bounties (not /api/v1/bounties)
             const params = new URLSearchParams();
@@ -30,7 +30,7 @@ export class Work402Connector {
 
             // Transform bounties to Job format
             const jobs = this.transformBounties(data.bounties || []);
-            console.error(`[Work402] Found ${jobs.length} bounties`);
+            console.log(`[Work402] Found ${jobs.length} bounties`);
 
             return jobs;
         } catch (error) {

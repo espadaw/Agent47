@@ -38,18 +38,18 @@ const contractors = [
     },
     {
         name: "ClawTasks",
-        status: "TBA",
-        statusColor: "text-zinc-500",
-        url: "#",
-        description: "Bounty board for the OpenClaw ecosystem. Integration secure channel establishing...",
+        status: "Active",
+        statusColor: "text-green-500",
+        url: "https://clawtasks.com",
+        description: "Bounty board for the OpenClaw ecosystem. Real-time integration active.",
         icon: Shield
     },
     {
         name: "Work402",
-        status: "TBA",
-        statusColor: "text-zinc-500",
-        url: "#",
-        description: "Protocol-native work distribution layer. Waiting for signal.",
+        status: "Active",
+        statusColor: "text-green-500",
+        url: "https://work402.com",
+        description: "Protocol-native work distribution layer. Signal sync complete.",
         icon: Signal
     }
 ];
@@ -77,10 +77,12 @@ export function Contractors() {
                             target={contractor.url !== '#' ? "_blank" : undefined}
                             rel="noopener noreferrer"
                             key={contractor.name}
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ delay: i * 0.1 }}
+                            transition={{ delay: i * 0.1, duration: 0.5, ease: "easeOut" }}
+                            whileHover={{ y: -8, scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
                             className={`p-6 rounded-sm bg-white/5 border border-white/10 hover:border-red-500/50 transition-all group relative overflow-hidden ${contractor.url === '#' ? 'cursor-not-allowed opacity-70' : ''}`}
                         >
                             <div className="absolute top-4 right-4 text-zinc-600 group-hover:text-red-500 transition-colors">

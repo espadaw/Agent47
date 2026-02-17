@@ -10,7 +10,7 @@ export class AgentWorkConnector {
 
     async fetchJobs(filters?: JobFilter): Promise<Job[]> {
         try {
-            console.error('[AgentWork] Fetching jobs...');
+            console.log('[AgentWork] Fetching jobs...');
 
             const response = await fetch(`${this.baseUrl}/api/jobs`);
 
@@ -22,7 +22,7 @@ export class AgentWorkConnector {
             const data = await response.json();
             const jobs = this.transformJobs(data.jobs || []);
 
-            console.error(`[AgentWork] Found ${jobs.length} jobs`);
+            console.log(`[AgentWork] Found ${jobs.length} jobs`);
             return jobs;
         } catch (error) {
             console.error('[AgentWork] Error fetching jobs:', error);

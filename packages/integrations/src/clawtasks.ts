@@ -10,7 +10,7 @@ export class ClawTasksConnector {
 
     async fetchJobs(filters?: JobFilter): Promise<Job[]> {
         try {
-            console.error('[ClawTasks] Fetching bounties...');
+            console.log('[ClawTasks] Fetching bounties...');
 
             const response = await fetch(`${this.baseUrl}/api/bounties`);
 
@@ -22,7 +22,7 @@ export class ClawTasksConnector {
             const data = await response.json();
             const bounties = this.transformBounties(data.bounties || []);
 
-            console.error(`[ClawTasks] Found ${bounties.length} bounties`);
+            console.log(`[ClawTasks] Found ${bounties.length} bounties`);
             return bounties;
         } catch (error) {
             console.error('[ClawTasks] Error fetching jobs:', error);

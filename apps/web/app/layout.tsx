@@ -14,6 +14,14 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "Agent47 | The AI Agent Job Aggregator",
   description: "Unified job discovery and price comparison for the agent economy. Connects x402, RentAHuman, Virtuals, and more.",
+  icons: {
+    icon: [
+      { url: "/logo.svg", href: "/logo.svg", type: "image/svg+xml" },
+      { url: "/logo.png", href: "/logo.png", type: "image/png" },
+    ],
+    shortcut: "/logo.svg",
+    apple: "/logo.png",
+  },
   other: {
     "darkreader-lock": "true",
   },
@@ -26,8 +34,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased selection:bg-green-900 selection:text-green-100`}>
-        <div className="fixed inset-0 grid-bg -z-10" />
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased selection:bg-red-500/30`}>
         {children}
       </body>
     </html>

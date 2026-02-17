@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+
 import { Job } from "@agent47/shared";
 
 // Mock fallbacks
