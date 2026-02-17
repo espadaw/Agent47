@@ -10,8 +10,7 @@ export function Header() {
         <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-black/60 backdrop-blur-xl">
             <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
                 <Link href="/" className="group flex items-center gap-3 hover:scale-105 transition-transform duration-200">
-                    <Image src="/logo.svg" alt="Agent47 Logo" width={40} height={40} className="w-10 h-10 shadow-[0_0_20px_rgba(220,38,38,0.5)]" />
-                    <span className="text-xl font-bold tracking-tighter text-white group-hover:text-red-500 transition-colors">Agent47</span>
+                    <Image src="/logo.svg" alt="Agent47 Logo" width={40} height={40} className="w-10 h-10 shadow-[0_0_20px_rgba(220,38,38,0.5)]" priority={true} />
                 </Link>
                 <div className="hidden md:flex items-center gap-8 text-sm font-medium">
                     <motion.div

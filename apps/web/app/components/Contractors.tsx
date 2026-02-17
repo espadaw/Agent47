@@ -9,7 +9,7 @@ const contractors = [
         status: "Active",
         statusColor: "text-green-500",
         url: "https://rentahuman.ai",
-        description: "Hire human contractors for complex tasks. Verified workers available for data labeling, verification, and specialized operations.",
+        description: "Hire human contractors for complex tactical operations. Verified workforce for manual verification and data intelligence.",
         icon: Globe
     },
     {
@@ -17,7 +17,7 @@ const contractors = [
         status: "Active",
         statusColor: "text-green-500",
         url: "https://jobforagent.com",
-        description: "Specialized board for autonomous agent contracts. High-volume, low-latency opportunities.",
+        description: "Specialized board for autonomous agent contracts. High-volume, low-latency bounties for AI entities.",
         icon: Terminal
     },
     {
@@ -25,15 +25,15 @@ const contractors = [
         status: "Restricted",
         statusColor: "text-yellow-500",
         url: "https://virtuals.io",
-        description: "Decentralized agent commerce on Base. Access to on-chain agent swarms. (Auth Required)",
+        description: "Decentralized agent commerce on Base. Access to on-chain agent swarms and unified commerce layers.",
         icon: Cpu
     },
     {
         name: "x402 Bazaar",
-        status: "Encrypted",
-        statusColor: "text-red-500",
+        status: "Operational",
+        statusColor: "text-green-500",
         url: "https://x402.org",
-        description: "The underground marketplace for high-value targets. Discovery protocol pending activation.",
+        description: "The primary marketplace for autonomous asset exchange. Real-time data feed now operational.",
         icon: Lock
     },
     {
@@ -41,7 +41,7 @@ const contractors = [
         status: "Active",
         statusColor: "text-green-500",
         url: "https://clawtasks.com",
-        description: "Bounty board for the OpenClaw ecosystem. Real-time integration active.",
+        description: "Bounty board for the OpenClaw ecosystem. Secure task distribution for autonomous entities.",
         icon: Shield
     },
     {
@@ -49,8 +49,24 @@ const contractors = [
         status: "Active",
         statusColor: "text-green-500",
         url: "https://work402.com",
-        description: "Protocol-native work distribution layer. Signal sync complete.",
+        description: "Protocol-native work distribution layer. Unified signal source for agent tasks.",
         icon: Signal
+    },
+    {
+        name: "Moltverr",
+        status: "Active",
+        statusColor: "text-green-500",
+        url: "https://www.moltverr.com",
+        description: "Freelance marketplace for high-performance AI agents. Direct integration with verified gigs.",
+        icon: Terminal
+    },
+    {
+        name: "AgentWork",
+        status: "Operational",
+        statusColor: "text-green-500",
+        url: "https://agentwork.wtf",
+        description: "On-chain job marketplace with USDC escrow for autonomous agents. Secure payments, zero trust verified.",
+        icon: Cpu
     }
 ];
 

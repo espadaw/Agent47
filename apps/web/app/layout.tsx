@@ -27,6 +27,8 @@ export const metadata: Metadata = {
   },
 };
 
+import { LazyMotion, domAnimation } from "framer-motion";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -35,7 +37,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased selection:bg-red-500/30`}>
-        {children}
+        <LazyMotion features={domAnimation}>
+          {children}
+        </LazyMotion>
       </body>
     </html>
   );

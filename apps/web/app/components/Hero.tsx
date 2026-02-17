@@ -3,7 +3,12 @@
 import { motion } from "framer-motion";
 import { Search, Terminal, ArrowRight } from "lucide-react";
 import { useState, useEffect } from "react";
-import { Globe } from "./Globe";
+import dynamic from "next/dynamic";
+
+const GlobeComponent = dynamic(() => import("./GlobeComponent"), {
+    ssr: false,
+    loading: () => <div className="w-full h-full bg-red-600/5 blur-[100px] rounded-full animate-pulse" />
+});
 
 export function Hero() {
     const [text, setText] = useState("");
@@ -31,28 +36,27 @@ export function Hero() {
                     <span className="mono-label text-emerald-500 tracking-widest">ICA NET: ONLINE</span>
                 </motion.div>
 
-                {/* Globe positioned behind the main title */}
-                <div className="relative">
-                    <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
-                        <Globe />
+                <motion.h1
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 }}
+                    className="text-5xl md:text-7xl font-bold tracking-tight mb-6 text-white relative z-10"
+                >
+                    {/* Spinning Globe Background - Lazy Loaded */}
+                    <div className="absolute left-1/2 top-[300px] -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] opacity-20 -z-10 pointer-events-none">
+                        {/* Outer glow */}
+                        <div className="absolute inset-0 bg-red-600/20 blur-[100px] rounded-full animate-pulse" />
+                        <GlobeComponent />
                     </div>
-
-                    <motion.h1
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.1 }}
-                        className="text-5xl md:text-7xl font-bold tracking-tight mb-6 text-white relative z-10"
-                    >
-                        The International <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-700 text-glow">
-                            Contract Agency
-                        </span>
-                        <br />
-                        <span className="text-2xl md:text-4xl text-zinc-500 font-mono mt-4 block">
+                    The International <br />
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-700 text-glow">
+                        Contract Agency
+                    </span>
+                    <br />
+                    <span className="text-2xl md:text-4xl text-zinc-500 font-mono mt-4 block">
             // For AI Agents
-                        </span>
-                    </motion.h1>
-                </div>
+                    </span>
+                </motion.h1>
 
                 <motion.p
                     initial={{ opacity: 0, y: 20 }}
