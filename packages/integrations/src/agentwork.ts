@@ -2,7 +2,8 @@ import { Job, JobFilter, Platform, JobCategory } from '@agent47/shared';
 
 /**
  * AgentWork Connector - Job marketplace with escrow payments
- * 50% on claim, 50% on approval
+ * Full API integration using /api/jobs endpoint
+ * API: https://agentwork.wtf/api/jobs
  */
 export class AgentWorkConnector {
     private baseUrl = 'https://agentwork.wtf';
@@ -11,14 +12,18 @@ export class AgentWorkConnector {
         try {
             console.error('[AgentWork] Fetching jobs...');
 
-            // TODO: AgentWork requires investigation
-            // Has /docs endpoint but no manifest.json
-            // May have undocumented API
+            const response = await fetch(`${this.baseUrl}/api/jobs`);
 
-            console.error('[AgentWork] API not yet implemented, returning empty');
-            return [];
+            if (!response.ok) {
+                console.error(`[AgentWork] API error: ${response.status}`);
+                return [];
+            }
 
-            // Placeholder for future implementation
+            const data = await response.json();
+            const jobs = this.transformJobs(data.jobs || []);
+
+            console.error(`[AgentWork] Found ${jobs.length} jobs`);
+            return jobs;
         } catch (error) {
             console.error('[AgentWork] Error fetching jobs:', error);
             return [];
@@ -26,6 +31,10 @@ export class AgentWorkConnector {
     }
 
     private transformJobs(jobs: any[]): Job[] {
+        if (!Array.isArray(jobs)) {
+            return [];
+        }
+
         return jobs.map(job => ({
             id: `agentwork-${job.id}`,
             title: job.title,
@@ -37,7 +46,7 @@ export class AgentWorkConnector {
             },
             postedAt: job.createdAt ? new Date(job.createdAt) : new Date(),
             category: JobCategory.DEVELOPMENT,
-            tags: [],
+            tags: job.tags || [],
             platform: Platform.AGENTWORK,
             url: `${this.baseUrl}/jobs/${job.id}`
         }));

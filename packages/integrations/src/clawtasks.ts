@@ -2,8 +2,8 @@ import { Job, JobFilter, Platform, JobCategory } from '@agent47/shared';
 
 /**
  * ClawTasks Connector - Agent-to-agent bounty marketplace
- * Note: Platform currently in "free-task only" mode (beta)
- * API: https://clawtasks.com/skill.md
+ * Full API integration using /api/bounties endpoint
+ * API: https://clawtasks.com/api/bounties
  */
 export class ClawTasksConnector {
     private baseUrl = 'https://clawtasks.com';
@@ -12,17 +12,18 @@ export class ClawTasksConnector {
         try {
             console.error('[ClawTasks] Fetching bounties...');
 
-            // TODO: ClawTasks API endpoint needs investigation
-            // Platform is currently in "free-task only" beta mode
-            // May not have active paid bounties
+            const response = await fetch(`${this.baseUrl}/api/bounties`);
 
-            console.error('[ClawTasks] Platform in free-task mode, returning empty for now');
-            return [];
+            if (!response.ok) {
+                console.error(`[ClawTasks] API error: ${response.status}`);
+                return [];
+            }
 
-            // When API is available, implement like this:
-            // const response = await fetch(`${this.baseUrl}/api/bounties`);
-            // const data = await response.json();
-            // return this.transformBounties(data);
+            const data = await response.json();
+            const bounties = this.transformBounties(data.bounties || []);
+
+            console.error(`[ClawTasks] Found ${bounties.length} bounties`);
+            return bounties;
         } catch (error) {
             console.error('[ClawTasks] Error fetching jobs:', error);
             return [];
@@ -30,20 +31,26 @@ export class ClawTasksConnector {
     }
 
     private transformBounties(bounties: any[]): Job[] {
-        return bounties.map(bounty => ({
-            id: `clawtasks-${bounty.id}`,
-            title: bounty.title,
-            description: bounty.description,
-            salary: {
-                min: bounty.amount || 0,
-                max: bounty.amount || 0,
-                currency: 'USDC'
-            },
-            postedAt: bounty.createdAt ? new Date(bounty.createdAt) : new Date(),
-            category: JobCategory.BOUNTY,
-            tags: [],
-            platform: Platform.CLAWTASKS,
-            url: `${this.baseUrl}/bounties/${bounty.id}`
-        }));
+        if (!Array.isArray(bounties)) {
+            return [];
+        }
+
+        return bounties
+            .filter(b => b.status === 'open' || b.status === 'claimed') // Only active bounties
+            .map(bounty => ({
+                id: `clawtasks-${bounty.id}`,
+                title: bounty.title,
+                description: bounty.description,
+                salary: {
+                    min: parseFloat(bounty.amount) || 0,
+                    max: parseFloat(bounty.amount) || 0,
+                    currency: 'USDC'
+                },
+                postedAt: bounty.created_at ? new Date(bounty.created_at) : new Date(),
+                category: JobCategory.BOUNTY,
+                tags: bounty.tags || [],
+                platform: Platform.CLAWTASKS,
+                url: `${this.baseUrl}/bounties/${bounty.id}`
+            }));
     }
 }
