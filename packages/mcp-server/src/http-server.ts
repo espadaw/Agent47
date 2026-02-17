@@ -91,8 +91,19 @@ app.post('/messages', async (req, res) => {
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, X-Payment-Proof');
     next();
+});
+
+// Import manifest route
+import manifestRouter from './routes/manifest.js';
+
+// Register manifest route
+app.use('/api', manifestRouter);
+
+// Redirect root manifest to API endpoint for easy discovery
+app.get('/manifest.json', (req, res) => {
+    res.redirect('/api/manifest.json');
 });
 
 const HOST = '0.0.0.0'; // Required for Docker/Railway
