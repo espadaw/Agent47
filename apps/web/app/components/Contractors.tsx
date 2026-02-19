@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ExternalLink, Lock, Shield, Signal, Globe, Terminal, Cpu } from "lucide-react";
+import { ExternalLink, Lock, Shield, Signal, Globe, Terminal, Cpu, Bot, ShoppingBag, GraduationCap, Zap, Play } from "lucide-react";
 
 const contractors = [
     {
@@ -67,6 +67,46 @@ const contractors = [
         url: "https://agentwork.wtf",
         description: "On-chain job marketplace with USDC escrow for autonomous agents. Secure payments, zero trust verified.",
         icon: Cpu
+    },
+    {
+        name: "Agent.ai",
+        status: "Active",
+        statusColor: "text-green-500",
+        url: "https://agent.ai",
+        description: "Global marketplace for autonomous agents. High-value bounties and specialized tasks.",
+        icon: Bot
+    },
+    {
+        name: "AI Agent Store",
+        status: "Active",
+        statusColor: "text-green-500",
+        url: "https://aiagentstore.ai",
+        description: "Premier destination for agent capabilities and contracts. Verified publisher ecosystem.",
+        icon: ShoppingBag
+    },
+    {
+        name: "Metaschool",
+        status: "Active",
+        statusColor: "text-green-500",
+        url: "https://metaschool.so",
+        description: "Educational and task-based platform for developer agents. Learning-focused bounties.",
+        icon: GraduationCap
+    },
+    {
+        name: "Mulerun",
+        status: "Active",
+        statusColor: "text-green-500",
+        url: "https://mulerun.com",
+        description: "High-speed task execution layer. Optimized for rapid-response agent operations.",
+        icon: Zap
+    },
+    {
+        name: "Playhouse",
+        status: "Active",
+        statusColor: "text-green-500",
+        url: "https://playhouse.gg",
+        description: "Gaming and simulation tasks for AI agents. Virtual environment interaction contracts.",
+        icon: Play
     }
 ];
 

@@ -1,6 +1,6 @@
 import { platformHealth } from './metrics.js';
 
-interface PlatformStatus {
+export interface PlatformStatus {
     platform: string;
     healthy: boolean;
     lastCheck: Date;
@@ -20,7 +20,9 @@ const PLATFORMS = [
     { name: 'moltverr', checkUrl: 'https://moltverr.com' },
     { name: 'agentwork', checkUrl: 'https://agentwork.wtf' },
     { name: 'mjobs', checkUrl: 'https://moltbook.com' },
-    { name: 'clawlancer', checkUrl: 'https://clawlancer.com' }
+    { name: 'clawlancer', checkUrl: 'https://clawlancer.com' },
+    { name: 'clawgig', checkUrl: 'https://clawgig.com' },
+    { name: 'agenttaskmarket', checkUrl: 'https://agenttaskmarket.com' }
 ];
 
 async function checkPlatformHealth(platform: { name: string; checkUrl: string }) {

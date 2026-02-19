@@ -3,6 +3,7 @@ import { z } from "zod";
 import { AggregatorEngine } from '@agent47/aggregator';
 import { checkPayment, PaymentRequiredError } from './middleware/payment.js';
 import { requestLatency, requestCounter, jobsAggregated } from './monitoring/metrics.js';
+import { MonitoringService } from './monitoring/service.js';
 
 /**
  * Creates and configures an MCP server instance with job aggregation tools.
@@ -16,6 +17,10 @@ export function createMcpServer(): McpServer {
 
     // Initialize Aggregator
     const aggregator = new AggregatorEngine();
+
+    // Start Monitoring Service
+    const monitoringService = new MonitoringService();
+    monitoringService.start();
 
     // Define findJobs tool (with payment)
     server.tool(

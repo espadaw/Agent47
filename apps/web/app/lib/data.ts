@@ -41,9 +41,9 @@ export async function getAgentData() {
 
     // Use hardcoded stats values instead of calculated
     return {
-        activeContractors: 9,
-        totalContracts: 1680,
-        totalVolume: 288000,
+        activeContractors: 14,
+        totalContracts: 2150,
+        totalVolume: 345000,
         executionTime: "<200ms",
         jobs: validJobs.slice(0, 5) // Return top 5 for live feed (RentAHuman filtered out)
     };
